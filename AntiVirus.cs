@@ -88,8 +88,25 @@ class AntiVirus
             }
         else 
             {
-                Console.WriteLine("No suspicious files found);
+                Console.WriteLine("No suspicious files found");
             }
-        }
+        try
+            {
+                System.UnauthorizedAccessException;
+            }
+        catch (Exception)
+            {
+                Console.WriteLine("Skipping unauthorized files");
+
+            }
     }
+    static void ExecuteFullScan()
+    {
+        Console.Clear();
+    }
+    static void ExecuteCustomScan()
+    {
+        Console.Clear();
+    }
+}
 }
