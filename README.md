@@ -23,8 +23,19 @@ Als Hausaufgabe habe ich versuht, Quick-Scan Teil zu erledigen aber ich bin gets
 
 
 # 30.10.2026
-- [ ] Quick-Scan Teil komplett erledigen.
-- [ ] Full-Scan Teil anfangen.
-- [ ] UI verbessern (Farbe, Buchstaben usw.).
-- [ ] Ganze Code debuggen.
+- [x] Quick-Scan Teil komplett erledigen.
+- [x] Full-Scan Teil anfangen.
+- [x] UI verbessern (Farbe, Buchstaben usw.).
+- [x] Ganze Code debuggen.
+
+Quick-Scan ist jetzt komplett fertig und funktioniert. Es scannt die einige Folder und zeigt "Suspicious-Files", falls es gibt etwas, die der Code als "Suspicious" zählt. Der Erste Teil des Codes ist jetzt fertig. Ich habe auch noch eine kleine Teil hinzugefüg, der "Look for specific files" heisst. Ich werde dieser Teil später bearbeiten. ContainsSuspiciousKeywords und HasStrangeStructureOrAnomalies sind die, die "Suspicious-files" bestimmen. Sie haben schon viel aber ich muss die 2 immer noch verbessern.
+
+
+# 6.11.2026
+- [ ] Full-Scan Teil bearbeiten (wenn möglich fertig stellen).
+- [ ] Rechechieren mehr über "Suspicious files" wie .exe und .js etc.
+- [ ] M162 bearbeiten
+- [ ] ContainsSuspiciousKeywords und HasStrangeStructureOrAnomalies verbessern
+- [ ] Manchmal bekomme ich einige normale Dateien als "Suspicious". Ich werde das lösen.
+
       
