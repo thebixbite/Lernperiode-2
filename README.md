@@ -36,8 +36,14 @@ Quick-Scan ist jetzt komplett fertig und funktioniert. Es scannt die einige Fold
 - [x] Rechechieren mehr über "Suspicious files" wie .exe und .js etc.
 - [x] M162 bearbeiten
 - [x] ContainsSuspiciousKeywords und HasStrangeStructureOrAnomalies verbessern
-- [x] Manchmal bekomme ich einige normale Dateien als "Suspicious". Ich werde das lösen.
+- [x] Manchmal bekomme ich einige normale Dateien als "Suspicious". Das werde ich lösen.
 
-Full-Scan Teil habe ich fast fertig gestellt. Jetzt kann man viel mehr als einige Dossiers scannen aber ich muss noch mehr Dossier hineingeben, um der Full-Scan Funktion zu verbessern.Ich habe viele neue schädliche File Typen gelernt. Ausser Full-Scan gibt es noch viele Sachen zum verbessern aber das mache ich am Ende.
+Full-Scan Teil habe ich fast fertig gestellt. Jetzt kann man viel mehr als einige Dossiers scannen aber ich muss noch mehr Dossier hineingeben, um der Full-Scan Funktion zu verbessern.Ich habe viele neue schädliche File Typen gelernt. Ausser Full-Scan gibt es noch viele Sachen zum verbessern aber das mache ich am Ende. 
 
+
+# 13.11.2026
+- [ ] Custom-Scan Teil anfangen zu programmieren.
+- [ ] Ein Eigenshaft hinzufügen, wo man bestimmte Datein suchen kann.
+- [ ] Startpage verbessern.
+- [ ] Neue Dossier in Full-Scan hineingeben.
       
