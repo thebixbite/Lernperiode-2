@@ -123,6 +123,73 @@ class Scanner
     static void ExecuteFullScan()
     {
         Console.Clear();
+        List<string> criticalFolders = new List<string>
+        {
+            Environment.GetFolderPath(Environment.SpecialFolder.System),
+            Path.GetTempPath(),
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads"),
+            Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+            Environment.GetFolderPath(Environment.SpecialFolder.CommonStartup),
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+            Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86),
+        };
+
+        foreach (string folder in criticalFolders)
+        {
+            if (!Directory.Exists(folder))
+            {
+                continue;
+            }
+
+            Console.WriteLine($"Scanning {folder}...");
+            System.Threading.Thread.Sleep(500);
+
+            try
+            {
+                string[] filePaths = Directory.GetFiles(folder);
+
+                foreach (string filePath in filePaths)
+                {
+                    int suspicionLevel = 0;
+
+                    if (ContainsSuspiciousKeywords(filePath))
+                    {
+                        suspicionLevel++;
+                    }
+
+                    if (HasStrangeStructureOrAnomalies(filePath))
+                    {
+                        suspicionLevel++;
+                    }
+
+                    if (suspicionLevel > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Suspicious file found: " + filePath);
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Skipping unauthorized folder: " + folder);
+            }
+            catch (IOException)
+            {
+                Console.WriteLine(
+                    "Skipping unavailable folder: " + folder);
+            }
+        }
+        Console.WriteLine("Scan completed.");
+        Console.WriteLine("Press any key to return to the main menu...");
+        Console.ReadKey();
     }
 
     static void ExecuteCustomScan()
