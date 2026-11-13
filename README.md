@@ -42,8 +42,18 @@ Full-Scan Teil habe ich fast fertig gestellt. Jetzt kann man viel mehr als einig
 
 
 # 13.11.2026
-- [ ] Custom-Scan Teil anfangen zu programmieren.
-- [ ] Ein Eigenshaft hinzufügen, wo man bestimmte Datein suchen kann.
-- [ ] Startpage verbessern.
-- [ ] Neue Dossier in Full-Scan hineingeben.
+- [x] Custom-Scan Teil anfangen zu programmieren.
+- [x] Ein Eigenshaft hinzufügen, wo man bestimmte Datein suchen kann.
+- [x] Startpage verbessern.
+- [x] Neue Dossier in Full-Scan hineingeben.
+- [ ] Custom-Scan wieder Funktionierbar machen.
+
+Custom-Scan war schwieriger zu programmieren als ich gedacht habe. Ich habe viele neue Sachen versucht, um es zu programmieren aber bis der letzte hat das nicht funktioniert. Der Code ist gut aber dieses mal hat der ganze Custom-Scan nicht funktioniert, sogar Console.WriteLine ist nicht siehtbar. Als Hausaufgabe werde ich noch das lösen.
+
+
+# 20.11.2026
+- [ ] Custom-Scan Teil beenden.
+- [ ] LookForSpecific Teil anfangen.
+- [ ] "Suchen" Teil verbessern.
+- [ ] Eine neue Bedingigung für "Suspicious Files" hinzufügen.
       
