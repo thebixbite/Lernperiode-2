@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 class Program
 {
+    [STAThread]
     static void Main()
     {
         while (true)
@@ -27,9 +28,11 @@ class Program
             Console.SetCursorPosition(0, 7);
             Console.WriteLine("[4] Look for specific files");
             Console.SetCursorPosition(0, 8);
-            Console.WriteLine("[5] Leave");
-
+            Console.WriteLine("[5] Information");
             Console.SetCursorPosition(0, 9);
+            Console.WriteLine("[6] Exit");
+
+            Console.SetCursorPosition(0, 10);
             string choice = Console.ReadLine() ?? string.Empty;
 
             if (choice == "1")
@@ -49,6 +52,21 @@ class Program
                 LookForSpecificFiles();
             }
             else if (choice == "5")
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("This scanner is designed to detect suspicious files and potential threats on your system.");
+                Console.WriteLine("It scans folders for files that may contain malicious content or exhibit unusual behavior.");
+                Console.WriteLine("Please note that this is just a scanner and every suspicious file does not mean that it is a malware.");
+                Console.WriteLine("Alwaysverify the files before taking any action.");
+                Console.WriteLine("Yellow meaans low risk and red means high risk.");
+                Console.SetCursorPosition(0, 7);
+                Console.WriteLine("Press any key to return to the main menu...");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.ReadKey();
+            }
+
+            else if (choice == "6")
             {
                 break;
             }
@@ -98,10 +116,21 @@ class Program
                         suspicionLevel++;
                     }
 
-                    if (suspicionLevel > 0)
+                    if (doubleExtension(filePath))
+                    {
+                        suspicionLevel += 2;
+                    }
+
+                    if (suspicionLevel == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Suspicious file found: " + filePath);
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    else if (suspicionLevel > 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Suspicious file found: " + filePath);
+                        Console.WriteLine("Highly suspicious file found: " + filePath);
                         Console.ForegroundColor = ConsoleColor.Blue;
                     }
                 }
@@ -175,10 +204,21 @@ class Program
                         suspicionLevel++;
                     }
 
-                    if (suspicionLevel > 0)
+                    if (doubleExtension(filePath))
+                    {
+                        suspicionLevel += 2;
+                    }
+
+                    if (suspicionLevel == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Suspicious file found: " + filePath);
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    if (suspicionLevel > 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Suspicious file found: " + filePath);
+                        Console.WriteLine("Highly suspicious file found: " + filePath);
                         Console.ForegroundColor = ConsoleColor.Blue;
                     }
                 }
@@ -201,49 +241,105 @@ class Program
     static void ExecuteCustomScan()
     {
         Console.Clear();
-        Console.WriteLine("Enter the path of the folder to scan:");
 
-        string customFolder= "";
-
-
-        OpenFileDialog dialog = new OpenFileDialog();
-
-        dialog.Title = "Choose a folder to scan";
-        dialog.Filter = "";
-
-        if (dialog.ShowDialog() == DialogResult.OK)
+        using (var dialog = new FolderBrowserDialog())
         {
-            string gateway = dialog.FileName;
-
-            try
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrEmpty(dialog.SelectedPath))
             {
-                string content = File.ReadAllText(gateway);
-                Console.Clear();
+                string selectedFolder = dialog.SelectedPath;
+                if (Directory.Exists(selectedFolder))
+                {
+                    Console.WriteLine($"Scanning {selectedFolder}...");
+                    System.Threading.Thread.Sleep(500);
 
+                    try
+                    {
+                        string[] filePaths = Directory.GetFiles(selectedFolder);
 
-                customFolder = content;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error:" + ex.Message);
+                        foreach (string filePath in filePaths)
+                        {
+                            int suspicionLevel = 0;
+
+                            if (ContainsSuspiciousKeywords(filePath))
+                            {
+                                suspicionLevel++;
+                            }
+
+                            if (HasStrangeStructureOrAnomalies(filePath))
+                            {
+                                suspicionLevel++;
+                            }
+
+                            if (doubleExtension(filePath))
+                            {
+                                suspicionLevel+= 2;
+                            }
+
+                            if (suspicionLevel == 1)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("Suspicious file found: " + filePath);
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                            }
+                            if (suspicionLevel > 1)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Highly suspicious file found: " + filePath);
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                            }
+                        }
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        Console.WriteLine("Skipping unauthorized folder: " + selectedFolder);
+                    }
+                    catch (IOException)
+                    {
+                        Console.WriteLine("Skipping unavailable folder: " + selectedFolder);
+                    }
+                }
             }
         }
-        else
-        {
-            Console.WriteLine("No folder selected.");
-        }
-
-        customFolder = File.ReadAllText(dialog.FileName).Trim().ToLower();
-
         Console.WriteLine("Scan completed.");
         Console.WriteLine("Press any key to return to the main menu...");
         Console.ReadKey();
-
     }
+
 
     static void LookForSpecificFiles()
     {
         Console.Clear();
+        Console.WriteLine("Enter or drag the file to scan: ");
+        string enteredFile = Console.ReadLine() ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(enteredFile))
+        {
+            Console.WriteLine("No file entered. Press any key to return to the main menu...");
+            Console.ReadKey();
+            return;
+        }
+        else if (!File.Exists(enteredFile))
+        {
+            Console.WriteLine("File does not exist. Press any key to return to the main menu...");
+            Console.ReadKey();
+            return;
+        }
+
+        int suspicionLevel = 0;
+
+        if (ContainsSuspiciousKeywords(enteredFile))
+           {
+             suspicionLevel++;
+           }
+        if (HasStrangeStructureOrAnomalies(enteredFile))
+           {
+             suspicionLevel++;
+        }
+        if (doubleExtension(enteredFile))
+        {
+            suspicionLevel += 2;
+        }
     }
 
 
@@ -252,9 +348,7 @@ class Program
         string fileName = Path.GetFileName(filePath).ToLower();
 
 
-        return fileName.Contains("powershell")
-            || fileName.Contains("cmd.exe")
-            || fileName.Contains("AutoOpen")
+        return fileName.Contains("AutoOpen")
             || fileName.Contains("vba")
             || fileName.Contains("shell")
             || fileName.Contains("exec")
@@ -270,10 +364,16 @@ class Program
     static bool HasStrangeStructureOrAnomalies(string filePath)
     {
         FileInfo fileInfo = new FileInfo(filePath);
-        if (fileInfo.Length > 2000000000000)
+        if (fileInfo.Length > 200000000000)
             {
             return true;
         }
         return false;
     }
+
+    static bool doubleExtension(string filePath)
+    {
+
+    }
 }
+
