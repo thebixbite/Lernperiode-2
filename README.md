@@ -46,9 +46,10 @@ Full-Scan Teil habe ich fast fertig gestellt. Jetzt kann man viel mehr als einig
 - [x] Ein Eigenshaft hinzufügen, wo man bestimmte Datein suchen kann.
 - [x] Startpage verbessern.
 - [x] Neue Dossier in Full-Scan hineingeben.
-- [ ] Custom-Scan wieder Funktionierbar machen.
+- [x] Custom-Scan wieder Funktionierbar machen.
 
 Custom-Scan war schwieriger zu programmieren als ich gedacht habe. Ich habe viele neue Sachen versucht, um es zu programmieren aber bis der letzte hat das nicht funktioniert. Der Code ist gut aber dieses mal hat der ganze Custom-Scan nicht funktioniert, sogar Console.WriteLine ist nicht siehtbar. Als Hausaufgabe werde ich noch das lösen.
+Als Hausaufgabe habe ich die Custom-Scan wieder Funktionierbar gemacht.
 
 
 # 20.11.2026
