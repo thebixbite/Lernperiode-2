@@ -55,6 +55,6 @@ Als Hausaufgabe habe ich die Custom-Scan wieder Funktionierbar gemacht.
 # 20.11.2026
 - [ ] Custom-Scan Teil beenden.
 - [ ] LookForSpecific Teil anfangen.
-- [ ] "Suchen" Teil verbessern.
+- [ ] Information-Page am Anfang beim Menu einfügen.
 - [ ] Eine neue Bedingigung für "Suspicious Files" hinzufügen.
       
