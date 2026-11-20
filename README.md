@@ -53,8 +53,18 @@ Als Hausaufgabe habe ich die Custom-Scan wieder Funktionierbar gemacht.
 
 
 # 20.11.2026
-- [ ] Custom-Scan Teil beenden.
-- [ ] LookForSpecific Teil anfangen.
-- [ ] Information-Page am Anfang beim Menu einfügen.
-- [ ] Eine neue Bedingigung für "Suspicious Files" hinzufügen.
+- [x] Custom-Scan Teil beenden.
+- [x] LookForSpecific Teil anfangen.
+- [x] Information-Page am Anfang beim Menu einfügen.
+- [x] Eine neue Bedingigung für "Suspicious Files" hinzufügen.
+- [ ] LookForSpecificFiles wieder Funktionierbar machen
+
+Heute habe ich viel gemacht. Custom-Scan ist fertig und funktioniert problemlos, habe eine Informationsseite eingefügt, neue Bedingigungen für Suspicious Files eingestellt und habe schon eine grosse Teil des LookForSpecificTeils programmiert. Es heisst DoubleExtensions und es sucht Dateien, die mit z.B. cmd.pdf enden. Diese DoubleExtensions habe ich noch nicht programmiert. Es gibt nur noch das LookForSpecificFiles Teil funkioniert wieder nicht und das werde ich als Hausaufhabe lösen.
+
+
+# 27.11.2026
+- [ ] LookForSpecificTeil beenden.
+- [ ] DoubleExtensions programmieren, wenn möglich beenden.
+- [ ] Verschiedene Farben für verschiedene verdächtige Dateien eingeben.
+- [ ] Informationenseite verbessern und neue Informationen eingeben.
       
