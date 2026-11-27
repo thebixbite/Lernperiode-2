@@ -57,8 +57,9 @@ class Program
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("This scanner is designed to detect suspicious files and potential threats on your system.");
                 Console.WriteLine("It scans folders for files that may contain malicious content or exhibit unusual behavior.");
+                Console.WriteLine("This scanner only checks file metadata and does not inspect file contents.")
                 Console.WriteLine("Please note that this is just a scanner and every suspicious file does not mean that it is a malware.");
-                Console.WriteLine("Alwaysverify the files before taking any action.");
+                Console.WriteLine("Always verify the files before taking any action.");
                 Console.WriteLine("Yellow meaans low risk and red means high risk.");
                 Console.SetCursorPosition(0, 7);
                 Console.WriteLine("Press any key to return to the main menu...");
@@ -106,10 +107,8 @@ class Program
                 {
                     int suspicionLevel = 0;
 
-                    if (ContainsSuspiciousKeywords(filePath))
-                    {
-                        suspicionLevel++;
-                    }
+                    suspicionLevel += ContainsSuspiciousKeywords(filePath);
+
 
                     if (HasStrangeStructureOrAnomalies(filePath))
                     {
@@ -194,10 +193,7 @@ class Program
                 {
                     int suspicionLevel = 0;
 
-                    if (ContainsSuspiciousKeywords(filePath))
-                    {
-                        suspicionLevel++;
-                    }
+                    suspicionLevel += ContainsSuspiciousKeywords(filePath);
 
                     if (HasStrangeStructureOrAnomalies(filePath))
                     {
@@ -261,10 +257,8 @@ class Program
                         {
                             int suspicionLevel = 0;
 
-                            if (ContainsSuspiciousKeywords(filePath))
-                            {
-                                suspicionLevel++;
-                            }
+                            suspicionLevel += ContainsSuspiciousKeywords(filePath);                         
+                            
 
                             if (HasStrangeStructureOrAnomalies(filePath))
                             {
@@ -282,7 +276,7 @@ class Program
                                 Console.WriteLine("Suspicious file found: " + filePath);
                                 Console.ForegroundColor = ConsoleColor.Blue;
                             }
-                            if (suspicionLevel > 1)
+                            else if (suspicionLevel > 1)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Highly suspicious file found: " + filePath);
@@ -311,15 +305,15 @@ class Program
     {
         Console.Clear();
         Console.WriteLine("Enter or drag the file to scan: ");
-        string enteredFile = Console.ReadLine() ?? string.Empty;
+        string filePath = Console.ReadLine() ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(enteredFile))
+        if (string.IsNullOrWhiteSpace(filePath))
         {
             Console.WriteLine("No file entered. Press any key to return to the main menu...");
             Console.ReadKey();
             return;
         }
-        else if (!File.Exists(enteredFile))
+        else if (!File.Exists(filePath))
         {
             Console.WriteLine("File does not exist. Press any key to return to the main menu...");
             Console.ReadKey();
@@ -328,43 +322,52 @@ class Program
 
         int suspicionLevel = 0;
 
-        if (ContainsSuspiciousKeywords(enteredFile))
-           {
-             suspicionLevel++;
-           }
-        if (HasStrangeStructureOrAnomalies(enteredFile))
+        suspicionLevel += ContainsSuspiciousKeywords(filePath);
+
+        if (HasStrangeStructureOrAnomalies(filePath))
            {
              suspicionLevel++;
         }
-        if (doubleExtension(enteredFile))
+        if (doubleExtension(filePath))
         {
             suspicionLevel += 2;
         }
+        Console.WriteLine("Scan completed.");
+        Console.WriteLine("Press any key to return to the main menu...");
+        Console.ReadKey();
     }
 
 
-    static bool ContainsSuspiciousKeywords(string filePath)
+    static int ContainsSuspiciousKeywords(string filePath)
     {
         string fileName = Path.GetFileName(filePath).ToLower();
 
+         if (fileName.Contains("http", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains(".crypto", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains(".locked", StringComparison.OrdinalIgnoreCase))
+         {
+            return 2;
+         }
 
-        return fileName.Contains("AutoOpen")
-            || fileName.Contains("vba")
-            || fileName.Contains("shell")
-            || fileName.Contains("exec")
-            || fileName.Contains("http")
-            || fileName.Contains("macro")
-            || fileName.Contains(".7z")
-            || fileName.Contains(".chm")
-            || fileName.Contains(".hta")
-            || fileName.Contains(".crypto")
-            || fileName.Contains(".locked");
+         if (fileName.Contains("AutoOpen", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains("vba", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains("shell", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains("exec", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains("macro", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains(".7z", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains(".chm", StringComparison.OrdinalIgnoreCase)
+            || fileName.Contains(".hta", StringComparison.OrdinalIgnoreCase))
+         {
+            return 1;
+         }
+
+         return 0;
     }
 
     static bool HasStrangeStructureOrAnomalies(string filePath)
     {
         FileInfo fileInfo = new FileInfo(filePath);
-        if (fileInfo.Length > 200000000000)
+        if (fileInfo.Length > 100000000000)
             {
             return true;
         }
@@ -373,7 +376,17 @@ class Program
 
     static bool doubleExtension(string filePath)
     {
+            string fileName = Path.GetFileName(filePath);
 
+            return fileName.EndsWith(".pdf.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".doc.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".docx.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".jpg.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".png.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".txt.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".zip.exe", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".pdf.scr", StringComparison.OrdinalIgnoreCase)
+                || fileName.EndsWith(".jpg.scr", StringComparison.OrdinalIgnoreCase);
     }
 }
 
