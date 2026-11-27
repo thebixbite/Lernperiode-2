@@ -64,8 +64,16 @@ Ich habe herausgefunden, dass der Problem doubleExtensions ist und habe noch die
 
 
 # 27.11.2026
-- [ ] LookForSpecificTeil beenden.
-- [ ] DoubleExtensions programmieren, wenn möglich beenden.
-- [ ] Verschiedene Farben für verschiedene verdächtige Dateien eingeben.
+- [ ] LookForSpecific-Teil beenden.
+- [x] DoubleExtensions programmieren, wenn möglich beenden.
+- [x] Verschiedene Farben für verschiedene verdächtige Dateien eingeben.
 - [ ] Informationenseite verbessern und neue Informationen eingeben.
+
+DoubleExtensions habe ich fertig programmiert aber ich kann immer noch neue Dateitypen hineingeben. Es zeigt jetzt verschiedene Farben für verschiedene verdächtige Dateitypen. Ich bın fast fertg mit LookForSpecific-Teil aber es scannt noch nicht. Ich werde noch als Hausaufgabe dieses Teil beenden und Informationsseite verbessern.
+
+
+# 4.12.2026
+- [ ] Neue Dateitypen für doubleExtensions eingeben.
+- [ ] Ganze Code sortieren und Kommentare hinzufügen.
+- [ ] Der Code zu .exe file umwandeln.
       
